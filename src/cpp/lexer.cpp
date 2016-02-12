@@ -11,8 +11,14 @@ lexer::lexer(std::string& str) : lexer() {
     input = std::stringstream(str);
 }
 
-char lexer::peek() {
-    return (char)input.peek();
+std::string lexer::lookahead(int length) {
+    std::stringstream ss{};
+    std::streampos pos{input.tellg()};
+    for (int i = 0; i < length && !input.eof(); i++) {
+	ss << (char)input.get();
+    }
+    input.seekg(pos);
+    return ss.str();
 }
 
 bool lexer::matches_pattern(std::string str, lexical_pattern& pattern_matched) {
