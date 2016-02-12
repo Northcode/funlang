@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 
 #include "token.hpp"
 #include "lexer.hpp"
@@ -10,12 +11,15 @@ int main() {
 
     cin >> str;
     
-    // lexer l{};
+    lexer l{str};
 
-    // std::regex& reg = l.patterns.at("identifier").re;
+    l.next();
 
-    // bool matched = regex_match(str,reg);
-    // cout << (matched?"yes":"no") << endl;
+    for (auto& tok : l.tokens) {
+	if (tok->type == tokens::token_type::Identifier) {
+	    cout << ((tokens::identifier*)tok.get())->name << endl;
+	}
+    }
     cout << endl;
     return 0;
 }

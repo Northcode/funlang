@@ -19,7 +19,8 @@ namespace tokens {
 	Assignment,
 	Operator,
 	String,
-	Bang
+	Bang,
+	None    
     };
     
     struct token {

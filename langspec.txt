@@ -37,7 +37,7 @@ fn main(args :string[]) : int {
 
    i : int = 0
    while i < 100 {
-   	 println(i); i++;
+   	println(i); i++;
    }
 
    g : greeter{"Hello, "}
