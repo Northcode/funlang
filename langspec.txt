@@ -19,9 +19,24 @@
 
 #PARSER PART
 
-<stmt>		:= <block>
-<stmt_list>	:= <stmt>+
-<block>		:= <open_block> <stmt_list> <close_block>
+#parse tree:
+
+EXPR = EXPR_mp | EXPR_ms | EXPR_i | EXPR_f
+# math expressions
+EXPR_mp -> EXPR_ms + EXPR_mp | EXPR_ms - EXPR_mp | EXPR_ms
+EXPR_ms -> EXPR_ms * EXPR_ms | EXPR_ms / EXPR_ms | EXPR_i | (EXPR_mp) | EXPR_ms + (EXPR_mp) | EXPR - (EXPR_mp)
+# ident expressions
+EXPR_i  -> ident | ident.EXPR_i
+# func expressions
+EXPR_f  -> EXPR_i.ident(EXPR_fa) | ident(EXPR_fa)
+EXPR_fa -> EXPR | EXPR,EXPR_fa
+
+
+Ea
+Eb + Ea
+Eb * Eb + Eb
+id * id + id
+
 
 # Code Example:
 
