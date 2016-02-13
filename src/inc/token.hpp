@@ -8,19 +8,20 @@
 namespace tokens {
 
     enum class token_type {
-	Identifier,
-	Keyword,
-	Whitespace,
-	Number,
-	Open_Paren,
-	Close_Paren,
-	Open_Block,
-	Close_Block,
-	Assignment,
-	Operator,
-	String,
-	Bang,
-	None    
+		Identifier,
+		Keyword,
+		Whitespace,
+		Number,
+		Open_Paren,
+		Close_Paren,
+		Open_Block,
+		Close_Block,
+		Assignment,
+		Operator,
+		String,
+		Char,
+		Bang,
+		None    
     };
     
     struct token {
@@ -53,6 +54,11 @@ namespace tokens {
 	string(std::string value) : token(token_type::String),value(value) {}
     };
 
+    struct char_lit : public token {
+	char value;
+	char_lit(char value) : token(token_type::Char),value(value) {}
+    };
+	
     struct oper : public token {
 	std::string symbol;
 	oper(std::string symbol) : token(token_type::Operator),symbol(symbol) {}
