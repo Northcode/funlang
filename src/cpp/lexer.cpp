@@ -4,12 +4,12 @@
 lexer::lexer() {
     tokens = std::vector< std::unique_ptr<tokens::token> >();
     patterns = std::vector<lexical_pattern>();
-    patterns.emplace_back(lexical_pattern(std::regex("(for|in|if|else|while|fn|return|class)"),0,0,tokens::token_type::Keyword));
-    patterns.emplace_back(lexical_pattern(std::regex("([a-zA-Z][a-zA-Z0-9]*)"),0,0,tokens::token_type::Identifier));
-    patterns.emplace_back(lexical_pattern(std::regex("([ \t\n]+)"),0,0,tokens::token_type::Whitespace));
-    patterns.emplace_back(lexical_pattern(std::regex("([0-9]+(?:\\.[0-9]+)?)"),0,2,tokens::token_type::Number));
-    patterns.emplace_back(lexical_pattern(std::regex("\\'(.)"),0,0,tokens::token_type::Char));
-    patterns.emplace_back(lexical_pattern(std::regex("\\\"([^\"]*)\\\""),0,0,tokens::token_type::String));
+    patterns.emplace_back(lexical_pattern(std::regex("(for|in|if|else|while|fn|return|class)"),tokens::token_type::Keyword));
+    patterns.emplace_back(lexical_pattern(std::regex("([a-zA-Z][a-zA-Z0-9]*)"),tokens::token_type::Identifier));
+    patterns.emplace_back(lexical_pattern(std::regex("([ \t\n]+)"),tokens::token_type::Whitespace));
+    patterns.emplace_back(lexical_pattern(std::regex("([0-9]+(?:\\.[0-9]+)?)"),tokens::token_type::Number));
+    patterns.emplace_back(lexical_pattern(std::regex("\\'(.)"),tokens::token_type::Char));
+    patterns.emplace_back(lexical_pattern(std::regex("\\\"([^\"]*)\\\""),tokens::token_type::String));
 }
 
 lexer::lexer(std::string& str) : lexer() {

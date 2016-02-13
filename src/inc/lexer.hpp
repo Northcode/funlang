@@ -12,13 +12,10 @@
 
 struct lexical_pattern {
     std::regex re;
-    int lookahead;
-    int internal_lookahead;
-
     tokens::token_type token_t;
     
     lexical_pattern() {};
-    lexical_pattern(std::regex re, int lookahead, int internal_lookahead,tokens::token_type type) : re(re),lookahead(lookahead),internal_lookahead(internal_lookahead),token_t(type) {}
+    lexical_pattern(std::regex re,tokens::token_type type) : re(re),token_t(type) {}
 };
 
 struct lexer {
