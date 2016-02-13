@@ -19,7 +19,9 @@
 
 #PARSER PART
 
-
+<stmt>		:= <block>
+<stmt_list>	:= <stmt>+
+<block>		:= <open_block> <stmt_list> <close_block>
 
 # Code Example:
 

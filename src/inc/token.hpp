@@ -17,7 +17,9 @@ namespace tokens {
 		Open_Block,
 		Close_Block,
 		Assignment,
-		Operator,
+		ArithOp,
+		CompOp,
+		UnaryOp,
 		String,
 		Char,
 		Bang,
@@ -59,11 +61,21 @@ namespace tokens {
 	char_lit(char value) : token(token_type::Char),value(value) {}
     };
 	
-    struct oper : public token {
+    struct arithop : public token {
 	std::string symbol;
-	oper(std::string symbol) : token(token_type::Operator),symbol(symbol) {}
+	arithop(std::string symbol) : token(token_type::ArithOp),symbol(symbol) {}
     };
 
+    struct compop : public token {
+	std::string symbol;
+	compop(std::string symbol) : token(token_type::CompOp),symbol(symbol) {}
+    };
+
+    struct unaryop : public token {
+	std::string symbol;
+	unaryop(std::string symbol) : token(token_type::ArithOp),symbol(symbol) {}
+    };
+	
     struct assign : public token {
 	assign() : token(token_type::Assignment) {}
     };

@@ -26,6 +26,24 @@ int main() {
 	    cout << "string: " << ((tokens::string*)tok.get())->value << endl;
 	} else if (tok->type == tokens::token_type::Char) {
 	    cout << "char: " << ((tokens::char_lit*)tok.get())->value << endl;
+	} else if (tok->type == tokens::token_type::Assignment) {
+	    cout << "assignment" << endl;
+	} else if (tok->type == tokens::token_type::ArithOp) {
+	    cout << "arithop: " << ((tokens::arithop*)tok.get())->symbol << endl;
+	} else if (tok->type == tokens::token_type::CompOp) {
+	    cout << "compop: " << ((tokens::compop*)tok.get())->symbol << endl;
+	} else if (tok->type == tokens::token_type::UnaryOp) {
+	    cout << "unaryop: " << ((tokens::unaryop*)tok.get())->symbol << endl;
+	} else if (tok->type == tokens::token_type::Open_Paren) {
+	    cout << "open paren" << endl;
+	} else if (tok->type == tokens::token_type::Close_Paren) {
+	    cout << "close paren" << endl;
+	} else if (tok->type == tokens::token_type::Open_Block) {
+	    cout << "open block" << endl;
+	} else if (tok->type == tokens::token_type::Close_Block) {
+	    cout << "close block" << endl;
+	} else if (tok->type == tokens::token_type::Bang) {
+	    cout << "bang" << endl;
 	}
     }
     cout << endl;

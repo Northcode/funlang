@@ -9,7 +9,15 @@ lexer::lexer() {
     patterns.emplace_back(lexical_pattern(std::regex("([ \t\n]+)"),tokens::token_type::Whitespace));
     patterns.emplace_back(lexical_pattern(std::regex("([0-9]+(?:\\.[0-9]+)?)"),tokens::token_type::Number));
     patterns.emplace_back(lexical_pattern(std::regex("\\'(.)"),tokens::token_type::Char));
-    patterns.emplace_back(lexical_pattern(std::regex("\\\"([^\"]*)\\\""),tokens::token_type::String));
+    patterns.emplace_back(lexical_pattern(std::regex("\\\"((?:[^\"]|\\\")*)\\\""),tokens::token_type::String));
+    patterns.emplace_back(lexical_pattern(std::regex("([+*]|-|\\/)"),tokens::token_type::ArithOp));
+    patterns.emplace_back(lexical_pattern(std::regex("(=)"),tokens::token_type::Assignment));
+    patterns.emplace_back(lexical_pattern(std::regex("([<>.|&]|==|<=|>=|!=|->|<<|>>|\\|\\||&&)"),tokens::token_type::CompOp));
+    patterns.emplace_back(lexical_pattern(std::regex("([(])"),tokens::token_type::Open_Paren));
+    patterns.emplace_back(lexical_pattern(std::regex("([)])"),tokens::token_type::Close_Paren));
+    patterns.emplace_back(lexical_pattern(std::regex("([{])"),tokens::token_type::Open_Block));
+    patterns.emplace_back(lexical_pattern(std::regex("([}])"),tokens::token_type::Close_Block));
+    patterns.emplace_back(lexical_pattern(std::regex("(!)"),tokens::token_type::Bang));
 }
 
 lexer::lexer(std::string& str) : lexer() {
@@ -50,6 +58,26 @@ std::unique_ptr<tokens::token> lexer::parse_token(std::string str, tokens::token
 	return std::unique_ptr<tokens::token>(new tokens::string(str));
     } else if (type == tokens::token_type::Char) {
 	return std::unique_ptr<tokens::token>(new tokens::char_lit(str[0]));
+    } else if (type == tokens::token_type::ArithOp) {
+	return std::unique_ptr<tokens::token>(new tokens::arithop(str));
+    } else if (type == tokens::token_type::CompOp) {
+	return std::unique_ptr<tokens::token>(new tokens::compop(str));
+    } else if (type == tokens::token_type::UnaryOp) {
+	return std::unique_ptr<tokens::token>(new tokens::unaryop(str));
+    } else if (type == tokens::token_type::Open_Paren) {
+	return std::unique_ptr<tokens::token>(new tokens::open_paren());
+    } else if (type == tokens::token_type::Close_Paren) {
+	return std::unique_ptr<tokens::token>(new tokens::close_paren());
+    } else if (type == tokens::token_type::Open_Block) {
+	return std::unique_ptr<tokens::token>(new tokens::open_block());
+    } else if (type == tokens::token_type::Close_Block) {
+	return std::unique_ptr<tokens::token>(new tokens::close_block());
+    } else if (type == tokens::token_type::Assignment) {
+	return std::unique_ptr<tokens::token>(new tokens::assign());
+    } else if (type == tokens::token_type::Bang) {
+	return std::unique_ptr<tokens::token>(new tokens::bang());
+    } else if (type == tokens::token_type::Assignment) {
+	return std::unique_ptr<tokens::token>(new tokens::assign());
     }
     return std::unique_ptr<tokens::token>(new tokens::token(tokens::token_type::None));
 }
